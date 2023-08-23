@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:200, 300, 400, 500, 600, 700, 800, 900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: white;
+}
+
+
+
+
+.container {
+  width: 100%;
+  text-align: center;
+  color: black;
+  z-index: 1;
+}
+
+h1 {
+  font-weight: normal;
+  font-size: 35px;
+  position: relative;
+  margin: 40px 0;
+}
+
+h1::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background-color: black;
+  bottom: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: animate 4s linear infinite;
+}
+
+
+/* Define the style for the product boxes */
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+.recipe-box {
+  width: 186px;
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.recipe-text {
+  font-weight: bold;
+}
+
+.recipe-image {
+  max-width: 150px;
+  max-height: 150px;
+}
+
+
+
+
+.top-cont {
+  background-color: rgb(243, 243, 243);
+  width: 90%;
+  margin: 0 auto 20px auto;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  box-shadow: 3px 3px 5px lightgray;
+}
+
+h3 {
+  height: 100%;
+  background-color: rgba(12, 12, 203, 0.4);
+  line-height: 60px;
+  padding: 0 50px;
+  color: whitesmoke;
+}
+
+label {
+  display: inline-block;
+  height: 100%;
+  margin: 0 20px;
+  line-height: 60px;
+  font-size: 18px;
+  color: gray;
+  transition: color .5s;
+}
+
+label:hover {
+  color: rgba(12, 12, 203, 0.4);
+}
+
+.photo-gal {
+  width: 90%;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+#add-form {
+  max-width: 100%;
+  margin: 50px auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: none;
+}
+
+.Head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.Head h2 {
+  font-size: 24px;
+  margin: 0;
+
+}
+
+label{
+  font-weight: bold;
+  margin-bottom: 5px;
+  display: block;
+  color: Black;
+
+}
+textarea,
+input[type="text"],
+input[type="file"] {
+  width: 95%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  background-color: none;
+
+
+}
+
+button[type="submit"] {
+  background-color: #007bff;
+  border: none;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+

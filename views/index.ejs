@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="/nav_style.css">
+    <title>Gallery</title>
+
+
+</head>
+
+<body>
+    <!-- <nav class="navbar" style="background-color: #e3f2fd;">
+        <div class="container-nav">
+            <a class="navbar-brand" href="#">Recipe</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Link</a>
+                    </li>
+                </ul>
+                <form class="d-flex" role="search">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav> -->
+    <header class="container">
+        <h1>Recipe</h1>
+        <div class="login-btn">
+            <a href="/login"><button class="btn1">Login</button></a>
+        </div>
+    </header>
+    <main>
+        <section class="list">
+            <div class="row">
+                <% recipes.forEach(recipe=> { %>
+                    <div class="recipe-box">
+                        <img class="recipe-image" src="/uploads/<%= recipe.image %>" alt="<%= recipe.title %>">
+                        <div class="recipe-text">
+                            <h2>
+                                <%= recipe.title %>
+
+                            </h2>
+                        </div>
+                        <a href="/edit/<%= recipe.id %>"><button>Edit</button></a>
+                        <a href="/delete/<%= recipe.id %>"><button>Delete</button></a>
+                    </div>
+
+                    <% }); %>
+            </div>
+        </section>
+        <section id="add-form">
+            <div class="Head">
+                <h2>Add New</h2>
+            </div>
+            <form action="/add" method="POST" enctype="multipart/form-data">
+                <input type="text" name="title" placeholder="Title" required>
+                <textarea name="ingredients" placeholder="Ingredients" required></textarea>
+                <textarea name="instructions" placeholder="Instructions" required></textarea>
+                <input type="file" name="image" accept="image/*" required>
+                <button type="submit">Add Recipe</button>
+            </form>
+
+        </section>
+    </main>
+    <script src="/script.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <section id="add-form">
+
+        <form action="/edit/<%= recipe.id %>" method="POST" >
+            <input type="text" name="title" value="<%= recipe.title %>" required>
+            <textarea name="ingredients" required><%= recipe.ingredients %></textarea>
+            <textarea name="instructions" required><%= recipe.instructions %></textarea>
+            <input type="file" name="image" accept="image/*">
+            <button type="submit">Save Changes</button>
+        </form>
+
+    </section>
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/style.css">
+    <title>Recipe Page</title>
+
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        .logout-btn {
+            display: flex;
+            justify-content: right;
+        }
+
+        .logout-btn button {
+            width: 100px;
+            height: 40px;
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Recipe</h1>
+        <a href="/logout"><button>Logout</button></a>
+        <section id="recipe-list">
+            <div class="row">
+                <% recipes.forEach(recipe=> { %>
+                    <a href="/recipe/<%= recipe.id %>">
+                        <div class="recipe-box">
+                            <img class="recipe-image" src="/uploads/<%= recipe.image %>" alt="<%= recipe.title %>">
+                            <div class="recipe-text">
+                                <h2>
+                                    <%= recipe.title %>
+                
+                                </h2>
+                               
+                                </p>
+                            </div>
+                        </div>
+
+
+                        <% }); %>
+            </div>
+        </section>
+
+
+    </main>
+
+
+    <script src="/script.js"></script>
+</body>
+
+</html>

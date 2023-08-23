@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= recipe.title %> - Recipe
+    </title>
+    <style>
+        /* recipe-style.css */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+            margin: 20px 0;
+        }
+
+        .recipe-details {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .recipe-box {
+            display: flex;
+            align-items: top;
+            justify-content: center;
+        }
+
+        .recipe-image {
+            max-width: 50%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .recipe-text {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .recipe-text h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .recipe-details .instruction h3 {
+            font-size: 20px;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            
+        }
+
+        .recipe-details .instruction p {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        /* Add more styles as needed */
+    </style>
+</head>
+
+<body>
+    <header class="container">
+        <h1>
+            <%= recipe.title %>
+        </h1>
+    </header>
+    <main>
+        <section class="recipe-details">
+            <div class="recipe-box">
+                <img class="recipe-image" src="/uploads/<%= recipe.image %>">
+                <div class="recipe-text">
+                    <h2>Ingredients:</h2>
+                    <p>
+                        <%= recipe.ingredients %>
+                    </p>
+                    
+
+                </div>
+            </div>
+            <div class="instruction">
+                <h2>Instructions:</h2>
+                <p>
+                    <%= recipe.instructions %>
+                </p>
+            </div>
+        </section>
+    </main>
+</body>
+
+</html>
