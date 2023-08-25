@@ -12,11 +12,6 @@
             text-align: center;
         }
 
-        .logout-btn {
-            display: flex;
-            justify-content: right;
-        }
-
         .logout-btn button {
             width: 100px;
             height: 40px;
@@ -60,20 +55,11 @@
                 <div class="recipe-box">
                     <img class="recipe-image" src="/uploads/<%= recipe.image %>" alt="<%= recipe.title %>">
                     <div class="recipe-text">
-                        <h2>
-                            <%= recipe.title %>
-                        </h2>
-
-                        </p>
-                        <a href="/edit/<%= recipe.id %>">
-                            <button>Edit</button>
-                        </a>
-                        <a href="/delete/<%= recipe.id %>">
-                            <button>Delete</button>
-                        </a>
+                        <h2><%= recipe.title %></h2>
+                        <a href="/edit/<%= recipe.id %>"><button>Edit</button></a>
+                        <a href="/delete/<%= recipe.id %>"><button>Delete</button></a>
                     </div>
                 </div>
-
                 <% }); %>
             </a>
         </div>

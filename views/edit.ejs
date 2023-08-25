@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        /* Apply styles to the entire body */
         body {
             font-family: Arial, sans-serif;
             background-color: #f5f5f5;
@@ -17,7 +16,6 @@
             min-height: 100vh;
         }
 
-        /* Style the form container */
         #add-form {
             background-color: white;
             border-radius: 8px;
@@ -26,7 +24,6 @@
             width: 400px;
         }
 
-        /* Style form inputs and textareas */
         input[type="text"],
         textarea {
             width: 100%;
@@ -37,7 +34,6 @@
             background-color: #f9f9f9;
         }
 
-        /* Style file input */
         input[type="file"] {
             border: none;
             padding: 0;
@@ -45,7 +41,6 @@
             margin-top: 10px;
         }
 
-        /* Style submit button */
         button[type="submit"] {
             display: block;
             width: 100%;
@@ -62,7 +57,6 @@
             background-color: #0056b3;
         }
 
-        /* Responsive adjustments */
         @media (max-width: 500px) {
             #add-form {
                 width: 90%;
@@ -73,28 +67,20 @@
             display: flex;
             justify-content: right;
         }
-
     </style>
 </head>
-
-<body>
-
-    <section id="add-form">
-
-        <div class="back-btn">
-            <a href="/main"><button>X</button></a>
-        </div>
-
-        <form action="/edit/<%= recipe.id %>" method="POST">
-            <input type="text" name="title" value="<%= recipe.title %>" required>
-            <textarea name="ingredients" required><%= recipe.ingredients %></textarea>
-            <textarea name="instructions" required><%= recipe.instructions %></textarea>
-            <input type="file" name="image" accept="image/*">
-            <button type="submit">Save Changes</button>
-        </form>
-
-    </section>
-
-</body>
-
+    <body>
+        <section id="add-form">
+            <div class="back-btn">
+                <a href="/main"><button>X</button></a>
+            </div>
+            <form action="/edit/<%= recipe.id %>" method="POST">
+                <input type="text" name="title" value="<%= recipe.title %>" required>
+                <textarea name="ingredients" required><%= recipe.ingredients %></textarea>
+                <textarea name="instructions" required><%= recipe.instructions %></textarea>
+                <input type="file" name="image" accept="image/*">
+                <button type="submit">Save Changes</button>
+            </form>
+        </section>
+    </body>
 </html>

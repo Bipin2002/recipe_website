@@ -11,9 +11,6 @@ body {
   background: white;
 }
 
-
-
-
 .container {
   width: 100%;
   text-align: center;
@@ -41,12 +38,12 @@ h1::before {
 }
 
 
-/* Define the style for the product boxes */
 .row {
   display: flex;
   flex-wrap: wrap;
   gap: 15px;
 }
+
 .recipe-box {
   width: 186px;
   padding: 10px;
@@ -64,9 +61,6 @@ h1::before {
   max-width: 150px;
   max-height: 150px;
 }
-
-
-
 
 .top-cont {
   background-color: rgb(243, 243, 243);
@@ -109,22 +103,12 @@ label:hover {
   grid-gap: 20px;
 }
 
-
-
-
-
-
-
-
-
-
 #add-form {
   max-width: 100%;
   margin: 50px auto;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  background-color: none;
 }
 
 .Head {
@@ -145,8 +129,8 @@ label{
   margin-bottom: 5px;
   display: block;
   color: Black;
-
 }
+
 textarea,
 input[type="text"],
 input[type="file"] {
@@ -156,9 +140,6 @@ input[type="file"] {
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-  background-color: none;
-
-
 }
 
 button[type="submit"] {
@@ -175,4 +156,3 @@ button[type="submit"] {
 button[type="submit"]:hover {
   background-color: #0056b3;
 }
-

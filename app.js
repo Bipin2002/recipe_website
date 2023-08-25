@@ -4,16 +4,16 @@ const multer = require('multer');
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
 const flash = require('connect-flash');
-
-// Import your Sequelize models
-const user = require('./models/users'); // Update the import path accordingly
-const recipe = require('./models/recipedb'); // Update the import path accordingly
-const sequelize = require('./models/database');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
+const user = require('./models/users');
+const recipe = require('./models/recipedb');
+const sequelize = require('./models/database');
+
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
+
 
 app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
@@ -21,13 +21,12 @@ app.use(express.static('public'));
 app.use(flash());
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
-app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 
 const oneDay = 1000 * 60 * 60 * 24;
 app.use(session({
-    secret: "thisismysecrctekeyfhrgfgrfrty84fwir767",
+    secret: "thisismysecretkeybecuaseIamdonhehahafhrgfgrfrty84fwir767",
     saveUninitialized: true,
     cookie: {maxAge: oneDay},
     resave: false
@@ -36,23 +35,22 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.use((req, res, next) => {
     res.locals.successFlash = req.flash('success');
     res.locals.errorFlash = req.flash('error');
     next();
 });
 
-// File storage setup using Multer
+
 const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'public/uploads');
-    },
     filename: (req, file, cb) => {
         const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
         cb(null, uniqueSuffix + '-' + file.originalname);
     }
 });
 const upload = multer({storage: storage});
+
 
 passport.use(new LocalStrategy(
     async (username, password, done) => {
@@ -95,6 +93,7 @@ passport.deserializeUser(async (id, done) => {
     }
 });
 
+
 app.get('/', async (req, res) => {
     try {
         await sequelize.authenticate();
@@ -107,11 +106,49 @@ app.get('/', async (req, res) => {
 });
 
 
+app.get('/login', (req, res) => {
+    res.render('login', {message: req.flash('error')});
+});
+
+app.post('/login', passport.authenticate('local', {
+    successRedirect: '/main',
+    failureRedirect: '/login',
+    failureFlash: true,
+}));
+
+
+app.get('/signup', (req, res) => {
+    res.render('signup', {message: req.flash('error')});
+});
+
+app.post('/signup', async (req, res) => {
+    try {
+        const {username, email, password} = req.body;
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        await user.create({
+            username,
+            email,
+            password: hashedPassword,
+        });
+        res.redirect('/login');
+    } catch (error) {
+        console.error('Error during signup:', error);
+        res.status(500).send('An error occurred during signup.');
+    }
+});
+
+
+app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.redirect('/');
+});
+
+
 app.get('/add', (req, res) => {
     if (req.isAuthenticated()) {
         res.render('add');
     } else {
-        // If not authenticated, redirect to the login page
         res.redirect('/login');
     }
 });
@@ -127,24 +164,21 @@ app.post('/add', upload.single('image'), async (req, res) => {
                 instructions,
                 image,
             });
-
             res.redirect('/main');
         } catch (error) {
             console.error(error);
             res.status(500).send('Error adding recipe');
         }
     } else {
-        // If not authenticated, redirect to the login page
         res.redirect('/login');
     }
 });
 
 
 app.get('/edit/:id', upload.single('image'), async (req, res) => {
-
     if (req.isAuthenticated()) {
         const recipeId = parseInt(req.params.id);
-        const selected = await recipe.findByPk(recipeId); // Use a different variable name here
+        const selected = await recipe.findByPk(recipeId);
 
         try {
             if (!selected) {
@@ -156,13 +190,12 @@ app.get('/edit/:id', upload.single('image'), async (req, res) => {
             res.status(500).send('Error updating recipe');
         }
     } else {
-        // If not authenticated, redirect to the login page
         res.redirect('/login');
     }
 });
 
-app.post('/edit/:id', async (req, res) => {
 
+app.post('/edit/:id', async (req, res) => {
     if (req.isAuthenticated()) {
         const recipeId = parseInt(req.params.id);
         const {title, ingredients, instructions} = req.body;
@@ -184,14 +217,12 @@ app.post('/edit/:id', async (req, res) => {
             res.status(500).send('Error updating recipe');
         }
     } else {
-        // If not authenticated, redirect to the login page
         res.redirect('/login');
     }
 });
 
 
 app.get('/delete/:id', async (req, res) => {
-
     if (req.isAuthenticated()) {
         const recipeId = parseInt(req.params.id);
 
@@ -206,7 +237,6 @@ app.get('/delete/:id', async (req, res) => {
             res.status(500).send('Error deleting recipe');
         }
     } else {
-        // If not authenticated, redirect to the login page
         res.redirect('/login');
     }
 });
@@ -227,12 +257,7 @@ app.get('/recipe/:id', async (req, res) => {
 });
 
 
-app.get('/login', (req, res) => {
-    res.render('login', {message: req.flash('error')});
-});
-
 app.get('/create', (req, res) => {
-
     if (req.isAuthenticated()) {
         res.render('add_recipe');
     } else {
@@ -241,11 +266,6 @@ app.get('/create', (req, res) => {
     }
 });
 
-app.post('/login', passport.authenticate('local', {
-    successRedirect: '/main',
-    failureRedirect: '/login',
-    failureFlash: true,
-}));
 
 app.get('/main', async (req, res) => {
     try {
@@ -263,40 +283,6 @@ app.get('/main', async (req, res) => {
 });
 
 
-// Display signup page
-app.get('/signup', (req, res) => {
-    res.render('signup', {message: req.flash('error')});
-});
-
-// Handle signup form submission
-app.post('/signup', async (req, res) => {
-    try {
-        const {username, email, password} = req.body;
-
-
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        await user.create({
-            username,
-            email,
-            password: hashedPassword,
-        });
-
-        res.redirect('/login');
-    } catch (error) {
-        console.error('Error during signup:', error);
-        res.status(500).send('An error occurred during signup.');
-    }
-});
-
-
-app.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.redirect('/');
-});
-
-
-// Sync models with the database
 sequelize.sync()
     .then(() => {
         console.log('Database synced');
