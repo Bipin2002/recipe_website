@@ -74,11 +74,11 @@
             <div class="back-btn">
                 <a href="/main"><button>X</button></a>
             </div>
-            <form action="/edit/<%= recipe.id %>" method="POST">
+            <form action="/edit/<%= recipe.id %>" method="POST" enctype="multipart/form-data">
                 <input type="text" name="title" value="<%= recipe.title %>" required>
                 <textarea name="ingredients" required><%= recipe.ingredients %></textarea>
                 <textarea name="instructions" required><%= recipe.instructions %></textarea>
-                <input type="file" name="image" accept="image/*">
+                <input type="file" name="newImage" accept="image/*">
                 <button type="submit">Save Changes</button>
             </form>
         </section>

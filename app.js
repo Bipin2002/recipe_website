@@ -5,6 +5,7 @@ const session = require('express-session');
 const cookieParser = require("cookie-parser");
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const {v4: uuidv4} = require('uuid');
 
 const user = require('./models/users');
 const recipe = require('./models/recipedb');
@@ -35,9 +36,9 @@ app.use(passport.session());
 
 
 const storage = multer.diskStorage({
+    destination: './public/uploads',
     filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, uniqueSuffix + '-' + file.originalname);
+        cb(null, file.originalname);
     }
 });
 const upload = multer({storage: storage});
@@ -146,9 +147,10 @@ app.get('/add', (req, res) => {
 app.post('/add', upload.single('image'), async (req, res) => {
     if (req.isAuthenticated()) {
         const {title, ingredients, instructions} = req.body;
-        const image = req.file.filename; // Get the uploaded image filename
+        const image = req.file.filename;
         try {
             await recipe.create({
+                id: uuidv4(),
                 title,
                 ingredients,
                 instructions,
@@ -167,7 +169,7 @@ app.post('/add', upload.single('image'), async (req, res) => {
 
 app.get('/edit/:id', upload.single('image'), async (req, res) => {
     if (req.isAuthenticated()) {
-        const recipeId = parseInt(req.params.id);
+        const recipeId = req.params.id;
         const selected = await recipe.findByPk(recipeId);
 
         try {
@@ -185,10 +187,11 @@ app.get('/edit/:id', upload.single('image'), async (req, res) => {
 });
 
 
-app.post('/edit/:id', async (req, res) => {
+app.post('/edit/:id', upload.single('newImage'), async (req, res) => {
     if (req.isAuthenticated()) {
-        const recipeId = parseInt(req.params.id);
-        const {title, ingredients, instructions} = req.body;
+        const recipeId = req.params.id;
+        const { title, ingredients, instructions } = req.body;
+        const newImage = req.file;
 
         try {
             const updatedRecipe = await recipe.findByPk(recipeId);
@@ -199,6 +202,10 @@ app.post('/edit/:id', async (req, res) => {
             updatedRecipe.title = title;
             updatedRecipe.ingredients = ingredients;
             updatedRecipe.instructions = instructions;
+
+            if (newImage) {
+                updatedRecipe.image = newImage.filename;
+            }
 
             await updatedRecipe.save();
             res.redirect('/main');
@@ -214,7 +221,7 @@ app.post('/edit/:id', async (req, res) => {
 
 app.get('/delete/:id', async (req, res) => {
     if (req.isAuthenticated()) {
-        const recipeId = parseInt(req.params.id);
+        const recipeId = req.params.id;
 
         try {
             const recipeToDelete = await recipe.findByPk(recipeId);
@@ -233,7 +240,7 @@ app.get('/delete/:id', async (req, res) => {
 
 
 app.get('/recipe/:id', async (req, res) => {
-    const recipeId = parseInt(req.params.id);
+    const recipeId = req.params.id;
     try {
         const selectedRecipe = await recipe.findByPk(recipeId);
         if (!selectedRecipe) {
