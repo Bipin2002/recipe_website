@@ -80,8 +80,20 @@
 
                         <button class="btn" type="submit">Login</button>
                     </form>
-
+                    <div id="error-message">
+                    <% if (message) { %>
+                        <p style="color: red;"><%= message %></p>
+                    <% } %>
+                    </div>
                     <p>Don't have an account? <a href="/signup">Sign up</a></p>
         </div>
+        <script>
+            setTimeout(() => {
+                const errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.innerHTML = '';
+                }
+            }, 2000);
+        </script>
     </body>
 </html>

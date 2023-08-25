@@ -99,13 +99,25 @@ app.get('/', async (req, res) => {
 
 
 app.get('/login', (req, res) => {
-    res.render('login');
+    res.render('login', { message: '' });
 });
 
-app.post('/login', passport.authenticate('local', {
-    successRedirect: '/main',
-    failureRedirect: '/login',
-}));
+app.post('/login', (req, res, next) => {
+    passport.authenticate('local', (err, user) => {
+        if (err) {
+            return next(err);
+        }
+        if (!user) {
+            return res.render('login', { message: 'Incorrect username or password.' });
+        }
+        req.logIn(user, (err) => {
+            if (err) {
+                return next(err); // Pass the error to the next middleware
+            }
+            return res.redirect('/main');
+        });
+    })(req, res, next);
+});
 
 
 app.get('/signup', (req, res) => {
