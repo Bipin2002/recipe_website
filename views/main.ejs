@@ -22,39 +22,64 @@
             height: 40px;
             font-size: 20px;
         }
+
+        .topnav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            overflow: hidden;
+        }
+
+        .topnav a {
+            color: white;
+            padding: 14px 16px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .topnav .right {
+            margin-left: auto;
+        }
     </style>
 </head>
 
 <body>
-    <main>
-        <h1>Recipe</h1>
-        <a href="/logout"><button>Logout</button></a>
-        <section id="recipe-list">
-            <div class="row">
-                <% recipes.forEach(recipe=> { %>
-                    <a href="/recipe/<%= recipe.id %>">
-                        <div class="recipe-box">
-                            <img class="recipe-image" src="/uploads/<%= recipe.image %>" alt="<%= recipe.title %>">
-                            <div class="recipe-text">
-                                <h2>
-                                    <%= recipe.title %>
-                
-                                </h2>
-                               
-                                </p>
-                            </div>
-                        </div>
+<div class="topnav" id="myTopnav">
+    <a href="/main" class="">My recipe</a>
+    <a href="/create" class="">Create recipe</a>
+    <a href="/logout" class="right">Logout</a>
+</div>
+<main>
+    <h1>Admin Recipe Dashboard</h1>
+    <section id="recipe-list">
+        <div class="row">
+            <% recipes.forEach(recipe=> { %>
+            <a href="/recipe/<%= recipe.id %>">
+                <div class="recipe-box">
+                    <img class="recipe-image" src="/uploads/<%= recipe.image %>" alt="<%= recipe.title %>">
+                    <div class="recipe-text">
+                        <h2>
+                            <%= recipe.title %>
+                        </h2>
 
+                        </p>
+                        <a href="/edit/<%= recipe.id %>">
+                            <button>Edit</button>
+                        </a>
+                        <a href="/delete/<%= recipe.id %>">
+                            <button>Delete</button>
+                        </a>
+                    </div>
+                </div>
 
-                        <% }); %>
-            </div>
-        </section>
+                <% }); %>
+            </a>
+        </div>
+    </section>
+</main>
 
-
-    </main>
-
-
-    <script src="/script.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+
+        /* Apply styles to the entire body */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Style the form container */
+        #add-form {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 400px;
+        }
+
+        /* Style the form header */
+        .Head {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .Head h2 {
+            color: #333;
+        }
+
+        /* Style form inputs */
+        input[type="text"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+
+        /* Style file input */
+        input[type="file"] {
+            border: none;
+            padding: 0;
+            background-color: transparent;
+        }
+
+        /* Style submit button */
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: green;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: green;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 500px) {
+            #add-form {
+                width: 90%;
+            }
+        }
+
+        .back-btn {
+            display: flex;
+            justify-content: right;
+        }
+
+    </style>
+</head>
+<body>
+<section id="add-form">
+    <div class="back-btn">
+        <a href="/main"><button>X</button></a>
+    </div>
+    <div class="Head">
+        <h2>Add New Recipe</h2>
+    </div>
+    <form action="/add" method="POST" enctype="multipart/form-data">
+        <input type="text" name="title" placeholder="Title" required>
+        <textarea name="ingredients" placeholder="Ingredients" required></textarea>
+        <textarea name="instructions" placeholder="Instructions" required></textarea>
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Add Recipe</button>
+    </form>
+
+</section>
+</body>
+</html>

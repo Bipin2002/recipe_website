@@ -4,9 +4,9 @@ const sequelize = new Sequelize({
   dialect: 'postgres', // Use the appropriate database dialect
   database: 'Recipe_data',
   username: 'postgres',
-  password: 'Iamdon',
+  password: 'root',
   host: 'localhost', // Update with your database host
-  port: 8000, // Update with your database port
+  port: 5432, // Update with your database port
 });
 
 module.exports = sequelize;

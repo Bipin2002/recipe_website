@@ -39,8 +39,8 @@
 
         .recipe-box {
             display: flex;
-            align-items: top;
-            justify-content: center;
+            align-items: normal;
+            justify-content: space-evenly;
         }
 
         .recipe-image {
@@ -52,19 +52,20 @@
 
         .recipe-text {
             flex: 1;
-            padding: 20px;
+            padding: 10px;
+            width:140px;
         }
 
         .recipe-text h2 {
             font-size: 24px;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
         .recipe-details .instruction h3 {
             font-size: 20px;
             margin-top: 15px;
             margin-bottom: 10px;
-            
+
         }
 
         .recipe-details .instruction p {
@@ -72,37 +73,46 @@
             line-height: 1.5;
         }
 
+        .back-btn {
+            display: flex;
+            justify-content: right;
+        }
+
         /* Add more styles as needed */
     </style>
 </head>
 
 <body>
-    <header class="container">
-        <h1>
-            <%= recipe.title %>
-        </h1>
-    </header>
-    <main>
-        <section class="recipe-details">
-            <div class="recipe-box">
-                <img class="recipe-image" src="/uploads/<%= recipe.image %>">
-                <div class="recipe-text">
-                    <h2>Ingredients:</h2>
-                    <p>
-                        <%= recipe.ingredients %>
-                    </p>
-                    
+<header class="container">
 
-                </div>
-            </div>
-            <div class="instruction">
-                <h2>Instructions:</h2>
+    <div class="back-btn">
+        <a href="/"><button>X</button></a>
+    </div>
+    <h1>
+        <%= recipe.title %>
+    </h1>
+</header>
+<main>
+    <section class="recipe-details">
+        <div class="recipe-box">
+            <img class="recipe-image" src="/uploads/<%= recipe.image %>">
+            <br>
+            <div class="recipe-text">
+                <h2>Ingredients:</h2>
                 <p>
-                    <%= recipe.instructions %>
+                    <%= recipe.ingredients %>
                 </p>
             </div>
-        </section>
-    </main>
+
+        </div>
+        <div class="instruction">
+            <h2>Instructions:</h2>
+            <p>
+                <%= recipe.instructions %>
+            </p>
+        </div>
+    </section>
+</main>
 </body>
 
 </html>
