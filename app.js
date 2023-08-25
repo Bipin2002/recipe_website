@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const multer = require('multer');
 const session = require('express-session');
 const cookieParser = require("cookie-parser");
-const flash = require('connect-flash');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 
@@ -18,7 +17,6 @@ const port = 3000;
 app.use(express.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
-app.use(flash());
 app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(cookieParser());
@@ -34,13 +32,6 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-
-app.use((req, res, next) => {
-    res.locals.successFlash = req.flash('success');
-    res.locals.errorFlash = req.flash('error');
-    next();
-});
 
 
 const storage = multer.diskStorage({
@@ -107,18 +98,17 @@ app.get('/', async (req, res) => {
 
 
 app.get('/login', (req, res) => {
-    res.render('login', {message: req.flash('error')});
+    res.render('login');
 });
 
 app.post('/login', passport.authenticate('local', {
     successRedirect: '/main',
     failureRedirect: '/login',
-    failureFlash: true,
 }));
 
 
 app.get('/signup', (req, res) => {
-    res.render('signup', {message: req.flash('error')});
+    res.render('signup');
 });
 
 app.post('/signup', async (req, res) => {
@@ -211,7 +201,7 @@ app.post('/edit/:id', async (req, res) => {
             updatedRecipe.instructions = instructions;
 
             await updatedRecipe.save();
-            res.redirect('/');
+            res.redirect('/main');
         } catch (error) {
             console.error(error);
             res.status(500).send('Error updating recipe');
